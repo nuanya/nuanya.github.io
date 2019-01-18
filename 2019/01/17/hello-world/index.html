@@ -1,20 +1,71 @@
-extends partial/layout.pug
-
-block site_title
-    != page.title + ' • ' + config.title
-
-block description
-    - var desc = page.desc || page.title + ' - ' + config.author;
-    meta(name='description', content=desc)
-
-block container
-    include mixins/post.pug
-    +post(page)
-
-block pagination
-    include mixins/paginator.pug
-    +post()
-    include partial/comment.pug
-
-block copyright
-    include partial/copyright.pug
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Hello World · UniAskme</title><meta name="description" content="Hello World - 暖鸦"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://www.nuanya.net/atom.xml" title="UniAskme"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/sunchongsheng" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Hello World</h1><div class="post-info">2019年1月17日</div><div class="post-content"><p>#Dart 2.2 编程语言规范</p>
+<h4 id="1-范围Scope"><a href="#1-范围Scope" class="headerlink" title="1 范围Scope"></a>1 范围Scope</h4><p>Ecma标准指定Dart编程语的语法和语义。它没有指定Dart库的api，除非这些库元素本身对于语言的正确运行至关重要(例如，对<strong>Object</strong>类的存在重要的方法，如noSuchMethod，runtimeType)。</p>
+<h4 id="2-一致性Conformance"><a href="#2-一致性Conformance" class="headerlink" title="2 一致性Conformance"></a>2 一致性Conformance</h4><p>Dart编程语言必须提供符合本规范中规定的实现并支持所有api(<strong>库、类型、函数、getters、setters，是否顶级、静态、实例或本地</strong>)。一个符合规范的实现可以提供额外的api，但是除了支持空感知的实验特性之外，没有其他语法。级联很可能在本规范的下一个修订中引入。</p>
+<h4 id="3-引用标准Normative-References"><a href="#3-引用标准Normative-References" class="headerlink" title="3 引用标准Normative References"></a>3 引用标准Normative References</h4><p>下列参考文件对本文档的应用是不可缺少的，<br>申请是不可缺少的。如引用日期已定，则只适用所引用的版本。未注明日期的引用，引用文档的最新版本(包括任何修正案)适用。</p>
+<ul>
+<li>Unicode 5.1版本，5.10修订版及其替代版本。</li>
+<li>Dart API参考，<a href="https://api.dartlang.org/" target="_blank" rel="noopener">https://api.dartlang.org/</a><h4 id="4-术语和定义Terms-and-Definitions"><a href="#4-术语和定义Terms-and-Definitions" class="headerlink" title="4 术语和定义Terms and Definitions"></a>4 术语和定义Terms and Definitions</h4>本规范中使用的术语和定义在本规范正文中给出。这些术语在出现时以<em>斜体</em>突出显示。例如，“我们使用术语<em>冗长verbosity</em>来指多余的属性，并在页边添加一个标记。<h4 id="5-注释Notation"><a href="#5-注释Notation" class="headerlink" title="5 注释Notation"></a>5 注释Notation</h4>我们区分规范性文本和非规范性文本。规范的文本定义Dart的规则。它是用当前这种字体给出的。而，非规范性的文本包括如下:</li>
+<li><strong>理论：</strong> 对语言设计决策动机的讨论以斜体显示。<em>区分规范性和非规范性有助于明确哪一部分文本的内容是有约束力的，哪一部分仅仅是解释性的。</em></li>
+<li><strong>说明：</strong> 诸如<em>细心的读者会注意到dart这个名字有四个字符</em>用于说明或澄清规范，但与规范性文本重复。<strong>说明</strong>和<strong>理论</strong>之间的区别可能很微妙。<em>说明比理论更为笼统，并可包括说明性实例或澄清。</em></li>
+<li><strong>开放式的问题：</strong> 开放问题是在该规范的作者心中<br>尚未解决的问题，希望在最终的规范中被消除。比如：<blockquote>
+<p>上一个项目符号后面的文本应该是基本原理还是注释?</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p>保留字和内置标识符(16.36)以粗体显示。比如<strong>switch</strong>、<strong>class</strong>。<br><strong>语法产生式</strong>以<strong>EBNF</strong>的常见变体形式给出。产生式的左侧以冒号结束，右侧交替用竖条表示，按间距排序。像PEGs一样，交替优先于左边。<strong>语法产生式</strong>的可选元素以问好最为后缀，如:anElephant?。向<strong>语法产生式</strong>中添加星号，表示它可以重复0次或更多次。向<strong>语法产生式</strong>中添加加号，表示它会出现一次或多次。使用括号分组。否定是通过在<strong>语法产生式</strong>的元素前加上一个波浪号来表示的。否定类似于PEGs的非组合，但是如果匹配，它将消耗输入。在词汇产生的上下文中，如果有一个字符，它将使用一个字符；否则，如果有一个标记，则使用一个标记。</p>
+<hr>
+<p>一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;aProduction&gt; ::= &lt;anAlternative&gt;</span><br><span class="line"> | &lt;anotherAlternative&gt;</span><br><span class="line"> | &lt;oneThing&gt; &lt;after&gt; &lt;another&gt;</span><br><span class="line"> | &lt;zeroOrMoreThings&gt;*</span><br><span class="line"> | &lt;oneOrMoreThings&gt;+</span><br><span class="line"> | &lt;anOptionalThing&gt;?</span><br><span class="line"> | (&lt;some&gt; &lt;grouped&gt; &lt;things&gt;)</span><br><span class="line"> | ˜&lt;notAThing&gt;</span><br><span class="line"> | ‘aTerminal’</span><br><span class="line"> | &lt;A_LEXICAL_THING&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>句法</strong>和<strong>词法</strong>的产生式都是这样表示的。<strong>词法产生式</strong>的区别在于它们的名称。<strong>词法产生式</strong>的名称完全由大写字符和下划线组成。像往常一样,在<strong>语法产生式</strong>中，除非另有说明，否则产生式元素之间的空白和注释将被隐式忽略。标点符号出现在引号中。<br>在讨论它们所表示的构造时，尽可能地嵌入<strong>产生式</strong>。<br><em>术语</em>是一种句法结构。它可以被认为是一段可以从语法中推导出来的文本，也可以被认为是由这种推导而产生的树。<br>给定术语<em>t</em>的<em>直接子项</em>是一个句法结构，它对应于<em>t</em>的直接子树，它被认为是一个派生树。给定术语<em>t</em>的<em>子项</em>是<em>t</em>，或者是<em>t</em>的直接子项，再或者是<em>t</em>的直接子项的子项。<br>列表<em>x1, . . . , xn</em>表示任何具有n个元素的列表。注意n可能是零，在这种情况下，列表是空的。我们在整个规范中广泛使用这些列表。<br>j∈0..n(<strong>译者注：j属于从0倒n</strong>)，让y~j~表示一个原子句法实体(如标识符)，让x~j~表示一个复合句法实体(如表达式或类型)，让E也表示一个一个复合句法实体。符号[x~1~/y~1~, . . . , x~n~/y~n~]E表示E的副本，其中每次出现的y~i~(1≤1≤n)都被x~i~替换。<br>这个操作也称为<em>替换（substitution）</em>，它是避免捕获的变体。也就是说，当E包含一个将y~i~引入某个i∈0..n的嵌套作用域的构造时，替换将不会替换该作用域中的y~i~。相反，如果这样的替换将标识符id（x~i~的子项）放入声明id的范围中，则E中的相关声明将系统地重命名为新名称。</p>
+<blockquote>
+<p>简而言之，捕获自由确保在替换期间保留每个标识符的“含义”。</p>
+</blockquote>
+<p>我们有时滥用列表(list)或映射(map)文字语法，编写[o~1~,…o~n~] (或{k~1~ : o~1~,…k~n~ : o~n~}),其中o~i~和k~i~可能是对象而不是表达式。目的是表示元素为o~i~(或键为k~i~，值为o~i~)的列表(映射)对象。<br>运算符的规范通常涉及诸如x op y之类的语句等效于方法调用x.op（y）。这些规范应该被理解为:</p>
+<ul>
+<li>x op y等效于方法调用x.op^’^(y)，假设为x的类实际上声明了一个名为op^’^的非运算符方法，用于定义与操作员操作相同的功能。<blockquote>
+<p>之所以需要这种绕圈子的说法，是因为x.op(y)(其中op是运算符)不是合法的语法。然而，它冗长得令人痛苦，我们更喜欢在这里陈述这条规则一次，并在整个规范中使用简洁明了的符号。</p>
+</blockquote>
+</li>
+</ul>
+<p>当规范引用程序中给出的顺序时，它指的是顺序的程序源代码文本，从左到右和从上到下扫描。<br>当规范引用一个新变量时，它意味着一个名称在当前程序中不会出现的变量。当规范引入一个绑定到值的新变量时，该新变量将隐式绑定到周围的作用域中。<br>对程序实体（例如类或函数）的其他未指定名称的引用被解释为Dart核心库的成员的名称。</p>
+<blockquote>
+<p>例如Object类和类型(Type)分别表示类层次结构的根和运行时类型的具体化。</p>
+</blockquote>
+<p>当规范说一段语法等价于另一段语法时，这意味着它在所有方面都是等价的，而前一段语法应该生成与后一段相同的编译时错误，并具有相同的运行时行为(如果有的话)。错误消息(如果有的话)应该始终引用原始语法。如果一个构造的执行或计算等同于另一个构造的执行或计算，那么只有运行时行为是等效的，而编译时错误只适用于原始语法。</p>
+<h4 id="6-概观Overview"><a href="#6-概观Overview" class="headerlink" title="6 概观Overview"></a>6 概观Overview</h4><p>Dart是一种基于类的、单继承的、纯面向对象的编程语言。Dart是可选类型的，支持具体化的泛型。每个对象的运行时类型都表示为类(Type)类型的实例，可以通过调用在Object类(Dart类层次结构的根)中声明的getter <strong>runtimeType</strong>来获得该类的实例。<br>Dart程序可以静态检查。带有编译时错误的程序没有指定的动态语义。在已知存在编译时错误的情况下，本规范不试图回答关于库或程序的其他问题。</p>
+<blockquote>
+<p>然而，工具可以选择支持带有错误的程序的执行。例如,编译器可能编译某些构造等错误,将会引发一个动态误差如果试图执行这样的构造,或者一个IDE集成运行时可能支持打开一个编辑器窗口执行这样一个构建时,允许开发者纠正这个错误。可以预期，这些特性将相当于此处指定的Dart动态语义的自然扩展，但是正如前面提到的，本规范没有尝试准确地指定这意味着什么。</p>
+</blockquote>
+<p>如本文档中所述，保证在某些情况下执行动态检查，并且某些类型系统的违规会在运行时抛出异常。</p>
+<blockquote>
+<p>在保证成功的情况下(例如基于静态分析的结果)，实现可以自由地忽略这些检查。<br>可选类型和具体化之间共存的基础是:</p>
+<ul>
+<li>具体化的类型信息反映了运行时对象的类型，并且总是可以通过动态类型检查构造(instanceOf、cast、typecase等在其他语言中的类似形式)来查询。具体化的类型信息包括访问表示类型的类类型的实例、对象的运行时类型(即类)以及构造函数和泛型函数调用的类型参数的实际值。</li>
+<li>类型注释声明变量和函数的类型(包括方法和构造函数)。</li>
+<li>类型注释可以省略，在这种情况下，通常用类型dynamic填充类型注释。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Dart的实现包括对省略类型推断的广泛支持。该规范假设已经进行了推理，因此推断的类型被认为已经出现在程序中。然而，在某些情况下，没有可用的信息来推断省略的类型注释，因此该规范仍然需要指定如何处理该类型注释。该规范的未来版本还将指定类型推断。</p>
+</blockquote>
+<p>Dart程序以模块化的方式组织成称为库的单元。库是封装的单元，可以是相互递归的。</p>
+<blockquote>
+<p>然而，他们不是一流的。要使库的多个副本同时运行，需要生成一个隔离。</p>
+</blockquote>
+<p>在启用或禁用断言时，可能会执行dart程序。用于启用或禁用断言的方法是特定于实现的。</p>
+<h5 id="6-1-作用域Scoping"><a href="#6-1-作用域Scoping" class="headerlink" title="6.1 作用域Scoping"></a>6.1 作用域Scoping</h5><p><strong>命名空间</strong>是表示声明到实际声明的名称映射。设NS为命名空间。如果名称n是NS的键，我们说n在NS中。如果一个NS的关键字映射到d，我们说声明d在NS中。<br>作用域S~0~引入一个命名空间NS~0~,该<strong>命名空间</strong>NS~0~将在S~0~中声明的每个变量、类型或函数声明d的简单名称映射到d。标签不包括在作用域引入的<strong>命名空间</strong>中;相反，它们有自己专用的名称空间。</p>
+<blockquote>
+<p>因此，在Dart中，声明具有相同名称的方法和getter的类是不可能的。类似地，不能声明与库变量或类同名的顶级函数。</p>
+</blockquote>
+<p>如果在同一范围内有多个具有相同名称的实体，则为编译时错误。</p>
+<blockquote>
+<p>在某些情况下，声明的名称与用于声明它的标识符不同。 Setter的名称与相应的getter不同，因为它们总是在末尾自动添加=，而且一元减号具有特殊名称unary-。</p>
+</blockquote>
+<p>Dart是词法作用域。作用域可以嵌套。如果名称或声明d位于由S引入的命名空间中，或者如果d在S的词法封闭域内，则d在S作用域中可用。如果d在当前作用域内可用，我们就说名称或声明d在作用域内。<br>如果名为n的声明d位于由作用域s引入的命名空间中，那么d将隐藏在s的词法封闭作用域中可用的任何名为n的声明。<br>这些规则的结果是，可以用方法或变量隐藏类型。命名约定通常可以防止这种滥用。然而，以下程序是合法的:<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HighlyStrung</span> </span>&#123;</span><br><span class="line"><span class="built_in">String</span>() =&gt; <span class="string">"?"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以通过作用域内的声明或导入或继承等其他机制将名称引入作用域。</p>
+<blockquote>
+<p>词法范围和继承之间的相互作用是微妙的。最终，问题是词法作用域优先于继承还是反之。Dart选择前者。<br>随着代码的发展，允许继承的名称优先于本地声明的名称可能会造成意想不到的情况。具体地说，如果在超类中引入新名称，子类中的代码行为可能会悄然改变。考虑:</p>
+</blockquote>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span> L1;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">S</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">library</span> L2;</span><br><span class="line"><span class="keyword">import</span> ‘L1.dart’;</span><br><span class="line">foo() =&gt; <span class="number">42</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> <span class="keyword">extends</span> <span class="title">S</span></span>&#123; bar() =&gt; foo();&#125;</span><br></pre></td></tr></table></figure>
+<p>现在假设一个方法foo()被添加到S中。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span> L1;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">S</span> </span>&#123;foo() =&gt; <span class="number">91</span>;&#125;</span><br></pre></td></tr></table></figure></p>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/01/18/just-s-test/" class="prev">PREV</a></div><div class="copyright"><p>© 2015 - 2019 <a href="http://www.nuanya.net">暖鸦</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

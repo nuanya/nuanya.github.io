@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nuanya.net/"/>
-  <updated>2019-01-18T06:04:54.583Z</updated>
+  <updated>2019-01-19T10:36:18.337Z</updated>
   <id>http://www.nuanya.net/</id>
   
   <author>
@@ -21,9 +21,16 @@
     <link href="http://www.nuanya.net/2019/01/18/just-s-test/"/>
     <id>http://www.nuanya.net/2019/01/18/just-s-test/</id>
     <published>2019-01-18T06:04:54.000Z</published>
-    <updated>2019-01-18T06:04:54.583Z</updated>
+    <updated>2019-01-19T10:36:18.337Z</updated>
+    
+    <content type="html"><![CDATA[<div class="tip"><br>    预处理器很强大，但它只是编写 CSS 的辅助工具。出于对扩展和维护等方面的考虑，在大型项目中有必要使用预处理器构建 CSS；但是对于小型项目，原生的 CSS 可能是一种更好的选择。不要肆意使用预处理器！<br></div>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;div class=&quot;tip&quot;&gt;&lt;br&gt;    预处理器很强大，但它只是编写 CSS 的辅助工具。出于对扩展和维护等方面的考虑，在大型项目中有必要使用预处理器构建 CSS；但是对于小型项目，原生的 CSS 可能是一种更好的选择。不要肆意使用预处理器！&lt;br&gt;&lt;/div&gt;
+      
     
     </summary>
     

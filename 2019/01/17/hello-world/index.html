@@ -72,4 +72,29 @@
 </blockquote>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span> L1;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">S</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">library</span> L2;</span><br><span class="line"><span class="keyword">import</span> ‘L1.dart’;</span><br><span class="line">foo() =&gt; <span class="number">42</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> <span class="keyword">extends</span> <span class="title">S</span></span>&#123; bar() =&gt; foo();&#125;</span><br></pre></td></tr></table></figure>
 <p>现在假设一个方法foo()被添加到S中。</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span> L1;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">S</span> </span>&#123;foo() =&gt; <span class="number">91</span>;&#125;</span><br></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a href="/2019/01/18/just-s-test/" class="prev">上一篇</a></div><div class="copyright"><p>© 2015 - 2019年.BY<a href="http://www.nuanya.net">暖鸦</a>,<a href="https://hexo.io/" target="_blank">Hexo</a>强力驱动,<a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">apollo</a>主题支持.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span> L1;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">S</span> </span>&#123;foo() =&gt; <span class="number">91</span>;&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果继承优先于词法作用域，C的行为将以一种意想不到的方式发生变化。S的作者和C的作者都没有意识到这一点。Dart中，如果存在一个在词法上可见的方法foo()，那么它将始终被调用。<br>现在考虑相反的情况。我们从一个包含foo()的S版本开始，但是没有在库L2中声明foo()。同样，行为也发生了变化——但是L2的作者引入了影响其代码的差异，并且新代码在词汇上是可见的。这两个因素都使问题更有可能被发现。<br>如果引入诸如嵌套类之类的结构，这些考虑就变得更加重要，这些结构可能会在语言的未来版本中得到考虑。<br>好的工具当然应该努力(谨慎地)告知程序员这种情况。例如，可以突出显示继承的和词汇上可见的标识符(通过下划线或着色)。更好的是，源代码控制与语言感知工具的紧密集成可以在这些更改发生时检测到它们。</p>
+</blockquote>
+<h5 id="6-2-隐私Privacy"><a href="#6-2-隐私Privacy" class="headerlink" title="6.2 隐私Privacy"></a>6.2 隐私Privacy</h5><p>Dart支持两种级别的隐私:公共和私有。如果声明的名称是私有的，那么它就是私有的，否则它就是公共的。如果组成q的任何标识符都是私有的，那么名称q就是私有的，否则它就是公共的。如果标识符以下划线（_字符）开头，则标识符是私有的，否则它是公共的。</p>
+<blockquote>
+<p>这意味着私有声明只能在声明它们的库中访问。</p>
+</blockquote>
+<p>隐私仅适用于库中的声明，而不适用于库声明本身。</p>
+<blockquote>
+<p>库之间不引用彼此的名称，因此私有库的概念是没有意义的。因此，如果库的名称以下划线开头，则不会影响库或其成员的可访问性。<br>在这一点上，隐私是一个与特定代码片段(库)相关联的静态概念。它被设计成支持软件工程问题而不是安全问题。不受信任的代码应该总是在另一个隔离程序中运行。有可能库将成为第一类对象，而隐私将是一个绑定到库实例的动态概念。<br>隐私由声明的名称表示——因此隐私和命名不是正交的。这样做的优点是，人和机器都可以在使用时识别对私有声明的访问，而不需要知道声明的派生上下文。</p>
+</blockquote>
+<h5 id="6-3-并发Concurrency"><a href="#6-3-并发Concurrency" class="headerlink" title="6.3 并发Concurrency"></a>6.3 并发Concurrency</h5><p>Dart代码总是单线程的。Dart中没有共享状态并发。并发是通过称为isolates的类actor实体来支持的。<br>隔离是并发的单位。它有自己的内存和自己的控制线程。隔离通过消息传递进行通信。隔离区之间不会共享任何状态。分离是通过产卵创建的。</p>
+<h4 id="7-错误和警告Errors-and-Warnings"><a href="#7-错误和警告Errors-and-Warnings" class="headerlink" title="7 错误和警告Errors and Warnings"></a>7 错误和警告Errors and Warnings</h4><p>该规范区分了几种错误。编译时错误是妨碍执行的错误。在执行错误代码之前，Dart编译器必须报告编译时错误。</p>
+<blockquote>
+<p>关于何时进行编译，Dart实现有相当大的自由度。现代编程语言的实现常常将编译和执行交错，因此方法的编译可能会延迟，例如，直到第一次调用它。因此，方法m中的编译时错误可以在m第一次调用时报告。<br>Dart通常直接从源代码加载，没有中间二进制表示。例如，为了快速加载，Dart实现可以选择避免对方法体进行完整的解析。这可以通过标记输入和检查方法体条目上的平衡花括号来实现。在这样的实现中，即使是语法错误，也只有在需要执行方法时才会被检测到，在这个时候它将被编译(JITed)。<br>在开发环境中，编译器当然应该急切地报告编译错误，以便最好地为程序员服务。<br>Dart开发环境可能选择支持消除错误的程序转换，例如，通过调用调试器来替换错误的表达式。指定此类转换如何工作以及在何处应用它们超出了本文的范围。</p>
+</blockquote>
+<p>如果在正在运行的隔离程序a的代码中发生未捕获的编译时错误，则立即挂起a。唯一可以捕获编译时错误的情况是通过反射式运行的代码，镜像系统可以捕获它。</p>
+<blockquote>
+<p>通常，一旦抛出编译时错误并挂起a，就会终止a。然而，这取决于整个环境。Dart引擎在嵌入式环境中运行，嵌入式环境是引擎和周围计算环境之间的接口程序。嵌入式程序通常是web浏览器，但不一定是;例如，它可能是服务器上的一个c++程序。当隔离程序出现如上所述的编译时错误而失败时，控件将返回到嵌入程序，并带有描述问题的异常。这是必要的，以便于嵌入式设备能够清理资源等。然后由嵌入式设备决定是否终止隔离。</p>
+</blockquote>
+<p>静态警告是不排除执行的情况，但不太可能是有意的，并且可能导致错误或不便。在执行相关代码之前，Dart编译器必须报告静态警告。</p>
+<p>当该规范说发生运行时错误时，它意味着抛出相应的错误对象。当它说发生动态类型错误时，它表示失败的运行时类型检查，而抛出的对象实现类型错误。</p>
+<p>每当我们说抛出异常ex时，它就像抛出了一个表达式，其中ex是异常对象，堆栈跟踪与当前系统状态对应。当我们说抛出一个C，其中C是一个类，我们的意思是抛出一个类C的实例。</p>
+<p>如果正在运行的隔离程序a抛出一个未捕获的异常，则立即挂起a。</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/01/18/just-s-test/" class="prev">上一篇</a></div><div class="copyright"><p>© 2015 - 2019年.BY<a href="http://www.nuanya.net">暖鸦</a>,<a href="https://hexo.io/" target="_blank">Hexo</a>强力驱动,<a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">apollo</a>主题支持.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.nuanya.net/"/>
-  <updated>2019-03-26T06:35:39.473Z</updated>
+  <updated>2019-03-26T06:45:15.994Z</updated>
   <id>http://www.nuanya.net/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://www.nuanya.net/2019/03/26/pix4D/"/>
     <id>http://www.nuanya.net/2019/03/26/pix4D/</id>
     <published>2019-03-26T06:31:19.248Z</published>
-    <updated>2019-03-26T06:35:39.473Z</updated>
+    <updated>2019-03-26T06:45:15.994Z</updated>
     
-    <content type="html"><![CDATA[<p>以下描述显示了最低和建议的硬件和软件要求。<br>最低限度<br>Windows 7,8,10，Server 2008，Server 2012,64位（使用Boot Camp的PC或Mac计算机）。<br>任何CPU（建议使用Intel i5 / i7 / Xeon）。<br>任何与OpenGL 3.2兼容的GPU。（集成显卡Intel HD 4000或以上）。<br>小型项目（低于100图像，14 MP）：4 GB RAM，10 GB HDD可用空间。<br>中型项目（14 MP时100到500张图像）：8 GB RAM，20 GB HDD可用空间。<br>大型项目（在14 MP时500到2000张图像之间）：16 GB RAM，40 GB HDD可用空间。<br>超大型项目（超过2000个图像，14 MP）：16 GB RAM，80 GB HDD可用空间。<br> 重要提示： 使用某些Quadro GPU进行处理时，已经观察到异常长的时间。这与NVIDIA控制面板中的某些设置有关。有关更多信息：使用Quadro GPU的第3步的长处理时间。 </p>]]></content>
+    <content type="html"><![CDATA[<p>以下描述显示了最低和建议的硬件和软件要求。<br>最低限度<br>Windows 7,8,10，Server 2008，Server 2012,64位（使用Boot Camp的PC或Mac计算机）。<br>任何CPU（建议使用Intel i5 / i7 / Xeon）。<br>任何与OpenGL 3.2兼容的GPU。（集成显卡Intel HD 4000或以上）。<br>小型项目（低于100图像，14 MP）：4 GB RAM，10 GB HDD可用空间。<br>中型项目（14 MP时100到500张图像）：8 GB RAM，20 GB HDD可用空间。<br>大型项目（在14 MP时500到2000张图像之间）：16 GB RAM，40 GB HDD可用空间。<br>超大型项目（超过2000个图像，14 MP）：16 GB RAM，80 GB HDD可用空间。</p><blockquote><p>重要提示： 使用某些Quadro GPU进行处理时，已经观察到异常长的时间。这与NVIDIA控制面板中的某些设置有关。有关更多信息：使用Quadro GPU的第3步的长处理时间。 </p></blockquote>]]></content>
     
     <summary type="html">
     
